@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from "styled-components";
 import slide from "../assets/slide.png";
 import thumb from "../assets/thumb.png";
@@ -97,10 +97,10 @@ interface Props {
     play: boolean,
     max?: string,
     image?: string,
-    position: {top: string, left: string, mobile: string},
+    position: { top: string, left: string, mobile: string },
 }
 
-function Slider({id, startValue, title, sound, play, max="1", image, position}: Props) {
+function Slider({ id, startValue, title, sound, play, max = "1", image, position }: Props) {
     const [slideValue, setSlideValue] = useState(startValue);
     const audioRef: any = useRef(null);
 
@@ -113,8 +113,8 @@ function Slider({id, startValue, title, sound, play, max="1", image, position}: 
         audioComponent!.addEventListener('ended', function () {
             audioComponent.currentTime = 0;
             audioComponent!.play()
-          }, false);
-    }, []);
+        }, false);
+    }, [id]);
 
     useEffect(() => {
         let audioComponent: any = document.getElementById(id);
@@ -131,24 +131,24 @@ function Slider({id, startValue, title, sound, play, max="1", image, position}: 
             <StyledImg
                 alt="image"
                 src={image}
-                opacity={slideValue/Number(max)}
+                opacity={slideValue / Number(max)}
             />
             <StyledSlider
                 posX={position.left}
                 posY={position.top}
                 mobile={position.mobile}
             >
-                <audio id={id} ref={audioRef} style={{zIndex: 10}} src={sound}/>
+                <audio id={id} ref={audioRef} style={{ zIndex: 10 }} src={sound} />
                 <StyledTitle>{title}</StyledTitle>
-                    <input
-                        type="range" 
-                        min="0"
-                        max={max ? max : "1"}
-                        step="0.01"
-                        value={slideValue} 
-                        onChange={handleChange}
-                        className="slider"
-                    />
+                <input
+                    type="range"
+                    min="0"
+                    max={max ? max : "1"}
+                    step="0.01"
+                    value={slideValue}
+                    onChange={handleChange}
+                    className="slider"
+                />
             </StyledSlider>
         </>
     );
